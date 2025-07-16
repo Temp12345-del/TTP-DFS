@@ -1,0 +1,50 @@
+Plotting differences for all matchups
+n: 4    Min Diff: 4      freq: 320.0
+        Max: 20  freq: 2976.0
+        Mean: 16.63     Std: 1.98       Alpha: 38.90    Beta: 7.89
+
+n: 6    Min Diff: 4      freq: 10.0
+        Max: 54  freq: 3108103.0
+        Mean: 48.74     Std: 2.45       Alpha: 178.90   Beta: 19.30
+
+n: 8    Min Diff: 54     freq: 5.0
+        Max: 104         freq: 806694.0
+        Mean: 95.89     Std: 3.00       Alpha: 469.10   Beta: 39.70
+
+n: 10   Min Diff: 112    freq: 1.0
+        Max: 170         freq: 224965.0
+        Mean: 159.22    Std: 3.45       Alpha: 890.40   Beta: 60.30
+
+Plotting differences for all matchups without home/away
+n: 4    Min Diff: 0      freq: 1200.0
+        Max: 20  freq: 2048.0
+        Mean: 14.49     Std: 2.61       Alpha: 18.90    Beta: 7.19
+
+n: 6    Min Diff: 0      freq: 511.0
+        Max: 54  freq: 323122.0
+        Mean: 43.80     Std: 3.56       Alpha: 79.90    Beta: 18.60
+
+n: 8    Min Diff: 38     freq: 1.0
+        Max: 104         freq: 30946.0
+        Mean: 88.92     Std: 4.02       Alpha: 343.10   Beta: 58.20
+
+n: 10   Min Diff: 100    freq: 2.0
+        Max: 170         freq: 3182.0
+        Mean: 150.48    Std: 4.50       Alpha: 858.70   Beta: 111.39
+
+Plotting differences for home/away matchups ONLY
+n: 4    Min Diff: 0      freq: 44.0
+        Max: 16  freq: 552.0
+        Mean: 9.50      Std: 2.97       Alpha: 0.00     Beta: 0.00
+
+n: 6    Min Diff: 0      freq: 1.0
+        Max: 48  freq: 23.0
+        Mean: 26.53     Std: 4.40       Alpha: 0.00     Beta: 0.00
+
+n: 8    Min Diff: 14     freq: 2.0
+        Max: 82  freq: 4.0
+        Mean: 49.27     Std: 6.17       Alpha: 0.00     Beta: 0.00
+
+n: 10   Min Diff: 32     freq: 1.0
+        Max: 122         freq: 1.0
+        Mean: 79.68     Std: 7.92       Alpha: 0.00     Beta: 0.00
