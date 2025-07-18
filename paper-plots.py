@@ -19,7 +19,18 @@ DIFFERENCES_ONLY_HA = 2
 # Annotate the plot with the max and mean differences,the beta binom stats, and a small title box
 def annotate_plot(subplot, n, plot_type, max_y_axis, max_diff, mean_diff, alpha, beta):
     # Add vertical lines for the max difference and annotate
-    if n == 4:
+
+    if plot_type == DIFFERENCES_ONLY_HA:
+        if n == 4:
+            x_coord = 0.9
+            y_coord = 0.8
+        elif n == 6:
+            x_coord = 0.95
+            y_coord = 0.8
+        else:
+            x_coord = 0.96
+            y_coord = 0.8
+    elif n == 4:
         x_coord = 0.95
         y_coord = 0.85
     elif n == 6:
