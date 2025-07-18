@@ -124,7 +124,8 @@ def make_subplot(subplot, diffs, n, plot_type, printStats=False):
 
     # Set the min and max of the differences
     min_diff = np.min(diffs)
-    max_diff = np.max(diffs)
+    max_found_diff = np.max(diffs)
+    max_diff = n * (n - 1) * 2 - n
 
     # Setting it in case plot_type is DIFFERENCES_ONLY_HA
     alpha, beta = 0, 0
@@ -134,6 +135,9 @@ def make_subplot(subplot, diffs, n, plot_type, printStats=False):
     freqs, _, _ = subplot.hist(diffs, bins=x_axis, align='left', color='orange', alpha=0.9, edgecolor='black', linewidth=1)
     max_y_axis = max(freqs) * 1.1
 
+    if printStats:
+        print(f"n: {n}\tMin Diff: {min_diff} \t freq: {freqs[0]}\n\tMax: {max_found_diff}\t freq: {freqs[-1]}")
+
     # Fit the curves based on the plot type
     mean_diff, std_diff, alpha, beta = fit_curves(x_axis, diffs, max_diff, min_diff, freqs, subplot2, plot_type)
 
@@ -141,7 +145,14 @@ def make_subplot(subplot, diffs, n, plot_type, printStats=False):
     annotate_plot(subplot, n, plot_type, max_y_axis, max_diff, mean_diff, alpha, beta)
 
     # Set the x-axis ticks
-    x_values = x_axis[::2 if n < 10 else 4]
+    if (n < 10 and plot_type != DIFFERENCES_ONLY_HA) or (n < 8 and plot_type == DIFFERENCES_ONLY_HA):
+        x_values = x_axis[::2]
+    elif n == 10 and plot_type == DIFFERENCES_ONLY_HA:
+        # For n=10 in the teamless case, we use every 4th tick to avoid clutter
+        x_values = x_axis[::6]
+    else:
+        # For larger n, we reduce the number of ticks to avoid clutter
+        x_values = x_axis[::4]
 
     # Axis settings and labels
     subplot.set_xticks(x_values)
@@ -154,7 +165,7 @@ def make_subplot(subplot, diffs, n, plot_type, printStats=False):
     subplot2.set_ylim(bottom=0)
 
     if printStats:
-        print(f"n: {n}\tMean: {mean_diff:.2f}\tStd: {std_diff:.2f}\tAlpha: {alpha:.2f}\tBeta: {beta:.2f}")
+        print(f"\tMean: {mean_diff:.2f}\tStd: {std_diff:.2f}\tAlpha: {alpha:.2f}\tBeta: {beta:.2f}\n")
 
 
 # Adds axis settings and labels, and saves the figure
@@ -175,6 +186,14 @@ def finish_plot(fig, file_name, show=False, twoXtwo=False):
 
 def plot_diffs(files, ns, plot_type, file_name, show=False, printStats=False, twoXtwo=False):
     differences = []
+
+    if printStats:
+        if plot_type == DIFFERENCES:
+            print("Plotting differences for all matchups")
+        elif plot_type == DIFFERENCES_WITHOUT_HA:
+            print("Plotting differences for all matchups without home/away")
+        elif plot_type == DIFFERENCES_ONLY_HA:
+            print("Plotting differences for home/away matchups ONLY")
 
     for i, file in enumerate(files):
         diff = np.array([int(diff) for diff in open(file, "r").read()[:-1].split(",")])
@@ -220,6 +239,6 @@ if __name__ == "__main__":
             files_distances_without_ha.append(f"./Distances/Distances Reduced Random-10k-{n}.csv")
             files_distances_only_ha.append(f"./Distances/Distances Teamless Random-10k-{n}.csv")
 
-    plot_diffs(files_distances, ns, DIFFERENCES, file_name="Plots/Differences_n=4-10.png", show=False, printStats=False)
-    plot_diffs(files_distances_without_ha, ns, DIFFERENCES_WITHOUT_HA, file_name="Plots/Differences_withoutHA_n=4-10.png", show=False, printStats=False)
-    plot_diffs(files_distances_only_ha, ns, DIFFERENCES_ONLY_HA, file_name="Plots/Differences_onlyHA_n=4-10.png", show=False, printStats=False)
+    #plot_diffs(files_distances, ns, DIFFERENCES, file_name="Plots/Differences_n=4-10.png", show=False, printStats=True, twoXtwo=True)
+    #plot_diffs(files_distances_without_ha, ns, DIFFERENCES_WITHOUT_HA, file_name="Plots/Differences_withoutHA_n=4-10.png", show=False, printStats=True, twoXtwo=True)
+    plot_diffs(files_distances_only_ha, ns, DIFFERENCES_ONLY_HA, file_name="Plots/Differences_onlyHA_n=4-10.png", show=False, printStats=False, twoXtwo=True)
